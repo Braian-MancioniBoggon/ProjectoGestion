@@ -40,7 +40,7 @@ const AgregarModificador = ({cerrarModal}) => {
                 <Field name='valor'  validate={campoObligatorio}>
                     {({ field, form }) => (
                       <FormControl isInvalid={form.errors.valor && form.touched.valor}>
-                        <FormLabel>Valor</FormLabel>
+                        <FormLabel pt="15px">Valor</FormLabel>
                         <Input {...field} placeholder='' autoComplete='off'  />
                         <FormErrorMessage>{form.errors.valor}</FormErrorMessage>
                       </FormControl>
