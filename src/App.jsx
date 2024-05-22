@@ -3,6 +3,7 @@ import { ChakraProvider  } from '@chakra-ui/react'
 import { Header } from './Components/Header/Header'
 import { Cuerpo } from './Components/Cuerpo/Cuerpo'
 import { MenuGrilla } from './Components/MenuGrilla/MenuGrilla'
+import { DiseñoEntrada } from './Components/DiseñoEntrada/DiseñoEntrada'
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
     <ChakraProvider>
       <Header/>
       <MenuGrilla />
-      <Cuerpo/>
+      <DiseñoEntrada/>
     </ChakraProvider>
   )
 }
