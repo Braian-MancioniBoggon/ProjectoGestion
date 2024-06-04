@@ -34,7 +34,7 @@ const DiseñoEntrada = () => {
                         <Flex w={"100%"} direction={"column"}>
                             <Flex w={"100%"}>Juan</Flex>
                             <Flex w={"100%"}>02914766183</Flex>
-                            <Flex w={"100%"}>Un patito en 3D para llevar puesto en la cabeza</Flex>
+                            <Flex w={"100%"}>Un patito en 3D para llevar puesto en la cabeza Un patito en 3D para llevar puesto en la cabeza Un patito en 3D para llevar puesto en la cabeza Un patito en 3D para llevar puesto en la cabeza </Flex>
                         </Flex>
                         <Flex w={"100%"} direction={"column"}>
                             <Flex w={"100%"} justifyContent={"flex-end"}>Factura  <Checkbox defaultChecked ml={"5px"}></Checkbox></Flex>

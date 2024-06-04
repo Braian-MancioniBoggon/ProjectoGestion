@@ -33,7 +33,7 @@ const MenuGrilla = () => {
                         <IconButton isRound='true' icon={<MdOutlineFindInPage />} color="" bg="" _hover={{ bg:"" }}></IconButton>
                         <IconButton isRound='true' icon={<MdOutlineFileCopy />} color="" bg="" _hover={{ bg:"" }}></IconButton>
                     </Flex>
-                    <Flex direction={'row'} textAlign={"center"} justifyContent='space-between' w="100%" pl={{base:"0px", sm:"0px", md:"30px"}}  pr={{base:"0px", sm:"0px", md:"30px"}} >
+                    {/* <Flex direction={'row'} textAlign={"center"} justifyContent='space-between' w="100%" pl={{base:"0px", sm:"0px", md:"30px"}}  pr={{base:"0px", sm:"0px", md:"30px"}} >
                         <Flex direction={'column'}>
                             Ingreso
                             <Input />
@@ -78,7 +78,7 @@ const MenuGrilla = () => {
                             Acciones
                             <Input />
                         </Flex>
-                    </Flex>
+                    </Flex> */}
                 </Flex>
             </VStack>
         </IconContext.Provider>
