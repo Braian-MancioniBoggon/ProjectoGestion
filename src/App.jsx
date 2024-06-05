@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChakraProvider  } from '@chakra-ui/react'
+import { ChakraProvider, Divider  } from '@chakra-ui/react'
 import { Header } from './Components/Header/Header'
 import { Cuerpo } from './Components/Cuerpo/Cuerpo'
 import { MenuGrilla } from './Components/MenuGrilla/MenuGrilla'
@@ -13,7 +13,7 @@ function App() {
       <Header/>
       <MenuGrilla />
       <DiseñoEntradaPc/>
-      <DiseñoEntrada/>
+      <Divider />
     </ChakraProvider>
   )
 }
