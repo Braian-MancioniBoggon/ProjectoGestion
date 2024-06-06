@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Formik } from 'formik';
-import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter } from '@chakra-ui/react'
+import { Field, Form, Formik } from 'formik';
+import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage } from '@chakra-ui/react'
+import { Formulario } from '../Formulario/Formulario';
 
-const CartelEmergente = () => {
+const CartelEmergente = ({agregarPedido}) => {
     const OverlayCartel = () => (
       <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
     )
@@ -26,12 +27,8 @@ const CartelEmergente = () => {
           <ModalHeader>Cargar pedido</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Acá va el formulario para cargar o editar el objeto "pedido"</Text>
+            <Formulario cerrarModal={onClose} agregarPedido={agregarPedido} />
           </ModalBody>
-          <ModalFooter>
-            <Button marginRight={"5px"}>Guardar</Button>
-            <Button onClick={onClose}>Cerrar</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
       </VStack>

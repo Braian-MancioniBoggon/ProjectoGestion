@@ -8,10 +8,10 @@ const Cuerpo = () => {
     const [pedidos, setPedidos] = useState([])
     const [fechaActual, setFechaActual] = useState(new Date().toLocaleDateString());
   
-    const agregarPedido = (nombre, telefono, fecha, detalle, total, seña, factura, estado) => {
+    const agregarPedido = (nombre, telefono, detalle, total, seña, factura, estado) => {
       if (nombre.trim() != "" && telefono.trim() != "" ){
-        const pedidoNueva = {nombre, telefono, fecha, detalle, total, seña, factura, estado}
-        setPedidos([...pedidos, pedidoNueva])
+        const pedidoNuevo = {nombre, telefono, fecha: fechaActual, detalle, total, seña, factura, estado}
+        setPedidos([...pedidos, pedidoNuevo])
       }
     }
     const borrarPedido = (eliminarPedido) => {
@@ -42,7 +42,7 @@ const Cuerpo = () => {
   
     return(
         <VStack w={"100%"}>
-            <CartelEmergente />
+            <CartelEmergente agregarPedido={agregarPedido} />
             {arregloPedidos.map((pedido, index) => (
               <DiseñoEntradaPc pedido={pedido} borrarPedido={borrarPedido}/>
             ))}
