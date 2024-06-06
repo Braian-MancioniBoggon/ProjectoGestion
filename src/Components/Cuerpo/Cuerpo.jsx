@@ -14,6 +14,9 @@ const Cuerpo = () => {
         setPedidos([...pedidos, pedidoNueva])
       }
     }
+    const borrarPedido = (eliminarPedido) => {
+      setArregloPedidos(arregloPedidos.filter(pedido => pedido.nombre !== eliminarPedido))
+    }
   
     const [arregloPedidos, setArregloPedidos] = useState([
       {
@@ -41,7 +44,7 @@ const Cuerpo = () => {
         <VStack w={"100%"}>
             <CartelEmergente />
             {arregloPedidos.map((pedido, index) => (
-              <DiseñoEntradaPc pedido={pedido}/>
+              <DiseñoEntradaPc pedido={pedido} borrarPedido={borrarPedido}/>
             ))}
             <Divider />
         </VStack>

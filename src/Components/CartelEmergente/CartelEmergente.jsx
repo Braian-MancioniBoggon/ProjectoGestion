@@ -1,34 +1,36 @@
 import React, { useState } from 'react'
+import { Formik } from 'formik';
 import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter } from '@chakra-ui/react'
 
 const CartelEmergente = () => {
-    const OverlayOne = () => (
+    const OverlayCartel = () => (
       <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
     )
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [overlay, setOverlay] = React.useState(<OverlayOne />)
+    const [overlay, setOverlay] = React.useState(<OverlayCartel />)
 
     return(
         <VStack>
         <Button
             onClick={() => {
-            setOverlay(<OverlayOne />)
+            setOverlay(<OverlayCartel />)
             onOpen()
         }}
         >
-            Modal
+            Cargar pedido
         </Button>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Cargar pedido</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Custom backdrop filters!</Text>
+            <Text>Acá va el formulario para cargar o editar el objeto "pedido"</Text>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+            <Button marginRight={"5px"}>Guardar</Button>
+            <Button onClick={onClose}>Cerrar</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

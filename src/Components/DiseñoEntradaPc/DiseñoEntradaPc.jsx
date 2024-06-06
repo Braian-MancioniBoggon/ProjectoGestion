@@ -3,7 +3,7 @@ import { VStack, Flex, IconButton, Img, Box, Text, Heading, Input, Checkbox, Div
 import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineDriveFileRenameOutline, MdOutlineRemoveRedEye, MdDeleteOutline, MdOutlineFindInPage, MdOutlineFileCopy, MdOutlineWhatsapp } from "react-icons/md";
 
-const DiseñoEntradaPc = ({pedido}) => {
+const DiseñoEntradaPc = ({pedido, borrarPedido}) => {
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
             <VStack w={"100%"}>
@@ -33,7 +33,7 @@ const DiseñoEntradaPc = ({pedido}) => {
                         </Flex>
                         <Flex direction={'row'}>
                             <IconButton isRound='true' icon={<MdOutlineFileCopy />}  color="" bg="" _hover={{ bg:"" }}></IconButton>
-                            <IconButton isRound='true' icon={<MdDeleteOutline />}  color="" bg="" _hover={{ bg:"" }}></IconButton>
+                            <IconButton isRound='true' icon={<MdDeleteOutline />}  color="" bg="" _hover={{ bg:"" }} onClick={() => borrarPedido(pedido.nombre)}></IconButton>
                         </Flex>
                     </Flex>
                 </Flex>
