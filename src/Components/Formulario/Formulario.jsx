@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Field, Form, Formik } from 'formik';
-import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react'
+import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage, Flex, Select, Checkbox, Textarea } from '@chakra-ui/react'
 
 const Formulario = ({cerrarModal, agregarPedido}) => {
 
@@ -8,6 +8,16 @@ const Formulario = ({cerrarModal, agregarPedido}) => {
       let error
       if (!value) {
         error = "Campo obligatorio"
+      }
+      return error
+    }
+
+    function validarTelefono(value) {
+      let error
+      if (!value) {
+          error = "Campo obligatorio"
+      } else if (value.startsWith('0') || value.startsWith('+54')) {
+          error = "El número no puede comenzar con 0 ni con +54"
       }
       return error
     }
@@ -25,11 +35,8 @@ const Formulario = ({cerrarModal, agregarPedido}) => {
                         }}
           onSubmit={(values, actions) => {
             if (!values.seña) {values.seña = 0;}
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2))
-              actions.setSubmitting(false)
-                actions.resetForm();
-            }, 1000)
+            agregarPedido( values.nombre, values.telefono, values.detalle, values.total, values.seña, values.factura, values.estado)
+            cerrarModal()
           }}
         >
           {(props) => (
@@ -43,7 +50,7 @@ const Formulario = ({cerrarModal, agregarPedido}) => {
                   </FormControl>
                 )}
               </Field>
-              <Field name='telefono' validate={campoObligatorio}>
+              <Field name='telefono' validate={validarTelefono}>
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.telefono && form.touched.telefono}>
                     <FormLabel>Telefono</FormLabel>
@@ -56,33 +63,64 @@ const Formulario = ({cerrarModal, agregarPedido}) => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.detalle && form.touched.detalle}>
                     <FormLabel>Detalle</FormLabel>
-                    <Input {...field} placeholder='' />
+                    <Textarea {...field} placeholder='' />
                     <FormErrorMessage>{form.errors.detalle}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-              <Field name='total' validate={campoObligatorio}>
-                {({ field, form }) => (
-                  <FormControl isInvalid={form.errors.total && form.touched.total}>
-                    <FormLabel>Total</FormLabel>
-                    <Input {...field} placeholder='' />
-                    <FormErrorMessage>{form.errors.total}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name='seña'>
-                {({ field, form }) => (
-                  <FormControl isInvalid={form.errors.seña && form.touched.seña}>
-                    <FormLabel>Seña</FormLabel>
-                    <Input {...field} placeholder='' defaultValue={"0"} />
-                    <FormErrorMessage>{form.errors.seña}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-                <Flex p={"16px 0px"} justifyContent={"flex-end"}>
-                    <Button isLoading={props.isSubmitting} type='submit' marginRight={"5px"} onClick={() => agregarPedido( nombre.value, telefono.value, detalle.value, total.value, seña.value, factura.value, estado.value)}>Guardar</Button>
-                    <Button onClick={cerrarModal}>Cerrar</Button>
+              <Flex justifyContent={"space-evenly"} alignItems={"center"} textAlign={"center"} paddingTop={"10px"}>
+                <Flex w={"150px"}>
+                  <Field name='total'>
+                    {({ field, form }) => (
+                      <FormControl isInvalid={form.errors.total && form.touched.total}>
+                        <FormLabel>Total</FormLabel>
+                        <Input {...field} placeholder='' />
+                        <FormErrorMessage>{form.errors.total}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
                 </Flex>
+                <Flex w={"150px"}>
+                  <Field name='seña'>
+                    {({ field, form }) => (
+                      <FormControl isInvalid={form.errors.seña && form.touched.seña}>
+                        <FormLabel>Seña</FormLabel>
+                        <Input {...field} placeholder='' />
+                        <FormErrorMessage>{form.errors.seña}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+              </Flex>
+              <Flex justifyContent={"space-evenly"} alignItems={"center"} textAlign={"center"} paddingTop={"16px"}>
+                <Flex w={"150px"}>
+                  <Field name='estado' w={"150px"}>
+                    {({ field, form }) => (
+                      <FormControl isInvalid={form.errors.estado && form.touched.estado}>
+                        <Select {...field}>
+                          <option value='Sin iniciar'>Sin iniciar</option>
+                          <option value='En proceso'>En proceso</option>
+                          <option value='Finalizado'>Finalizado</option>
+                        </Select>
+                        <FormErrorMessage>{form.errors.estado}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+                <Flex w={"150px"}>
+                  <Field name='factura' w={"150px"}>
+                    {({ field, form }) => (
+                      <FormControl isInvalid={form.errors.factura && form.touched.factura}><Checkbox {...field} ml={"5px"}>Factura</Checkbox>
+                      <FormErrorMessage>{form.errors.factura}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+              </Flex>
+              <Flex p={"16px 0px"} justifyContent={"flex-end"}>
+                <Button isLoading={props.isSubmitting} type='submit' marginRight={"5px"}>Guardar</Button>
+                  <Button onClick={cerrarModal}>Cerrar</Button>
+              </Flex>
             </Form>
           )}
         </Formik>

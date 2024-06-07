@@ -7,12 +7,17 @@ const Cuerpo = () => {
 
     const [pedidos, setPedidos] = useState([])
     const [fechaActual, setFechaActual] = useState(new Date().toLocaleDateString());
+    const [accionModal, setAccionModal] = useState("Cargar")
   
     const agregarPedido = (nombre, telefono, detalle, total, seña, factura, estado) => {
-      if (nombre.trim() != "" && telefono.trim() != "" ){
-        const pedidoNuevo = {nombre, telefono, fecha: fechaActual, detalle, total, seña, factura, estado}
-        setPedidos([...pedidos, pedidoNuevo])
-      }
+      const pedidoNuevo = {nombre, telefono, fecha: fechaActual, detalle, total, seña, factura, estado}
+      setArregloPedidos([...arregloPedidos, pedidoNuevo])
+    }
+    const accionCargar = () => {
+      setAccionModal("Cargar")
+    }
+    const accionModificar = () => {
+      setAccionModal("Modificar")
     }
     const borrarPedido = (eliminarPedido) => {
       setArregloPedidos(arregloPedidos.filter(pedido => pedido.nombre !== eliminarPedido))
@@ -21,7 +26,7 @@ const Cuerpo = () => {
     const [arregloPedidos, setArregloPedidos] = useState([
       {
       nombre: 'Juan',
-      telefono: '2914332467',
+      telefono: '2914142126',
       fecha: fechaActual,
       detalle: 'Un patito amarillo impreso en 3D para ponerce en la cabeza',
       total: 3000,
@@ -30,7 +35,7 @@ const Cuerpo = () => {
       estado: 'Sin iniciar'
       },{
       nombre: 'Santi',
-      telefono: '2914399999',
+      telefono: '2915275376',
       fecha: fechaActual,
       detalle: 'Un cuervo negro impreso en 3D para ponerlo como espantapajaro en el local',
       total: 10000,
@@ -42,9 +47,9 @@ const Cuerpo = () => {
   
     return(
         <VStack w={"100%"}>
-            <CartelEmergente agregarPedido={agregarPedido} />
+            <CartelEmergente agregarPedido={agregarPedido} accionModal={accionModal} accionModificar={accionModificar} accionCargar={accionCargar}/>
             {arregloPedidos.map((pedido, index) => (
-              <DiseñoEntradaPc pedido={pedido} borrarPedido={borrarPedido}/>
+              <DiseñoEntradaPc key={index} pedido={pedido} borrarPedido={borrarPedido}/>
             ))}
             <Divider />
         </VStack>
