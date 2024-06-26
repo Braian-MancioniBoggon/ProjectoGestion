@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage } from '@chakra-ui/react'
 import { Formulario } from '../Formulario/Formulario';
 
-const CartelEmergente = ({agregarPedido, accionModal, accionModificar, accionCargar}) => {
+const CartelEmergente = ({agregarPedido, accionModal}) => {
     const OverlayCartel = () => (
       <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
     )
@@ -15,18 +15,16 @@ const CartelEmergente = ({agregarPedido, accionModal, accionModificar, accionCar
         <VStack>
         <Button
             onClick={() => {
-            accionCargar
-            setOverlay(<OverlayCartel />)
-            onOpen()
+              setOverlay(<OverlayCartel />)
+              onOpen()
         }}
         >
             Cargar pedido
         </Button>
         <Button
             onClick={() => {
-            accionModificar
-            setOverlay(<OverlayCartel />)
-            onOpen()
+              setOverlay(<OverlayCartel />)
+              onOpen()
         }}
         >
             Modificar pedido

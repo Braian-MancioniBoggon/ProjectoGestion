@@ -9,7 +9,6 @@ function App() {
   return (
     <ChakraProvider>
       <Header/>
-      <MenuGrilla />
       <Cuerpo />
     </ChakraProvider>
   )
