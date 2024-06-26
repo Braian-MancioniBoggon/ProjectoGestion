@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { VStack, Divider, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Flex, IconButton, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage   } from '@chakra-ui/react'
-import { DiseñoEntradaPc } from '../DiseñoEntradaPc/DiseñoEntradaPc'
-import { Field, Form, Formik } from 'formik';
+import { VStack, Divider, Modal, ModalOverlay, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Flex, IconButton } from '@chakra-ui/react'
+import { DiseñoEntradaPc } from '../DiseñoEntradaPc/DiseñoEntradaPc';
 import { Formulario } from '../Formulario/Formulario';
 import { IconContext } from 'react-icons';
-import { MdOutlineAddBox, MdOutlineDriveFileRenameOutline, MdOutlineRemoveRedEye, MdDeleteOutline, MdOutlineFindInPage, MdOutlineFileCopy } from "react-icons/md";
+import { MdOutlineAddBox, MdOutlineFindInPage} from "react-icons/md";
 
 const Cuerpo = () => {
 
