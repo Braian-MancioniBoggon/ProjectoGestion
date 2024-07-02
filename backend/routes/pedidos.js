@@ -14,4 +14,14 @@ router.get('/', async (req, res) => {
   res.status(200).send(pedidos);
 });
 
+router.put('/:id', async (req, res) => {
+  const pedido = await Pedido.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.status(200).send(pedido);
+});
+
+router.delete('/:id', async (req, res) => {
+  await Pedido.findByIdAndDelete(req.params.id);
+  res.status(204).send();
+});
+
 module.exports = router;

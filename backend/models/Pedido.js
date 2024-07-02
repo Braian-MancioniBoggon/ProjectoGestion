@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const pedidoSchema = new mongoose.Schema({
+const PedidoSchema = new mongoose.Schema({
   nombre: String,
-  telefono: Number,
-  fechaIngreso: { type: Date, default: Date.now },
+  telefono: String,
+  fecha: String,
   detalle: String,
   total: Number,
   seña: Number,
@@ -11,5 +11,6 @@ const pedidoSchema = new mongoose.Schema({
   estado: String
 });
 
-const Pedido = mongoose.model('Pedido', pedidoSchema);
+const Pedido = mongoose.model('Pedido', PedidoSchema);
+
 module.exports = Pedido;

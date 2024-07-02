@@ -22,3 +22,13 @@ app.use('/api/pedidos', pedidosRouter);
 app.listen(3001, () => {
   console.log('Servidor corriendo en puerto 3001');
 });
+
+app.delete('/api/pedidos/:id', async (req, res) => {
+  try {
+    const pedidoId = req.params.id;
+    await Pedido.findByIdAndDelete(pedidoId);
+    res.status(200).send('Pedido eliminado');
+  } catch (error) {
+    res.status(500).send('Error al eliminar pedido');
+  }
+});

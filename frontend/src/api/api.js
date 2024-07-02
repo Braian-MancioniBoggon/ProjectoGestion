@@ -6,3 +6,5 @@ const api = axios.create({
 
 export const createPedido = (pedido) => api.post('/pedidos', pedido);
 export const getPedidos = () => api.get('/pedidos');
+export const updatePedido = (id, pedido) => api.put(`/pedidos/${id}`, pedido);
+export const deletePedido = (id) => api.delete(`/pedidos/${id}`);

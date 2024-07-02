@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { VStack, Flex, IconButton, Img, Box, Text, Heading, Input, Checkbox, Divider, Badge, Link } from '@chakra-ui/react';
+import React, { useState } from 'react'
+import { VStack, Flex, IconButton, Img, Box, Text, Heading, Input, Checkbox, Divider, Badge, Link } from '@chakra-ui/react'
 import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineDriveFileRenameOutline, MdOutlineRemoveRedEye, MdDeleteOutline, MdOutlineFindInPage, MdOutlineFileCopy, MdOutlineWhatsapp } from "react-icons/md";
 
 const DiseñoEntradaPc = ({pedido, modificarPedido, borrarPedido}) => {
-    const [whatsappLink, setWhatsappLink] = useState(`https://wa.me/+54${pedido.telefono}`);
+    const [whatsappLink, setWhatsappLink] = useState(`https://wa.me/+54${pedido.telefono}`)
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
             <VStack w={"100%"}>
@@ -29,7 +29,7 @@ const DiseñoEntradaPc = ({pedido, modificarPedido, borrarPedido}) => {
                     </Flex>
                     <Flex direction={"column"} alignItems={"center"} justifyContent={"center"} flexGrow={1} p={5}>
                         <Flex direction={'row'}>
-                            <IconButton isRound='true' icon={<MdOutlineDriveFileRenameOutline />} onClick={() => modificarPedido(pedido)}  color="" bg="" _hover={{ bg:"" }}></IconButton>
+                            <IconButton isRound='true' icon={<MdOutlineDriveFileRenameOutline />} onClick={() => modificarPedido}  color="" bg="" _hover={{ bg:"" }}></IconButton>
                             <Link href={whatsappLink} isExternal>
                                 <IconButton isRound='true' icon={<MdOutlineWhatsapp />}  color="" bg="" _hover={{ bg:"" }} ></IconButton>
                             </Link>
@@ -42,7 +42,7 @@ const DiseñoEntradaPc = ({pedido, modificarPedido, borrarPedido}) => {
                 </Flex>
             </VStack>
         </IconContext.Provider>
-    );
+    )
 }
 
-export { DiseñoEntradaPc };
+export { DiseñoEntradaPc }

@@ -1,41 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { VStack, Divider, Modal, ModalOverlay, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Flex, IconButton } from '@chakra-ui/react';
+import React, { useState } from 'react'
+import { VStack, Divider, Modal, ModalOverlay, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Flex, IconButton } from '@chakra-ui/react'
 import { DiseñoEntradaPc } from '../DiseñoEntradaPc/DiseñoEntradaPc';
 import { Formulario } from '../Formulario/Formulario';
 import { IconContext } from 'react-icons';
-import { MdOutlineAddBox, MdOutlineFindInPage } from "react-icons/md";
-import { createPedido, getPedidos } from '../../api/api';
+import { MdOutlineAddBox, MdOutlineFindInPage} from "react-icons/md";
 
 const Cuerpo = () => {
-    const [pedidos, setPedidos] = useState([]);
+
+    const [pedidos, setPedidos] = useState([])
     const [fechaActual, setFechaActual] = useState(new Date().toLocaleDateString());
   
-    const fetchPedidos = async () => {
-      const response = await getPedidos();
-      setPedidos(response.data);
-    };
-
-    useEffect(() => {
-      fetchPedidos();
-    }, []);
-  
-    const agregarPedido = async (nombre, telefono, detalle, total, seña, factura, estado) => {
-      const pedidoNuevo = { nombre, telefono, fecha: fechaActual, detalle, total, seña, factura, estado };
-      const response = await createPedido(pedidoNuevo);
-      setPedidos([...pedidos, response.data]);
-    };
-
-    const borrarPedido = async (nombre) => {
-      // Implementa la lógica para borrar un pedido en el backend y actualizar el estado
-    };
-
+    const agregarPedido = (nombre, telefono, detalle, total, seña, factura, estado) => {
+      const pedidoNuevo = {nombre, telefono, fecha: fechaActual, detalle, total, seña, factura, estado}
+      setArregloPedidos([...arregloPedidos, pedidoNuevo])
+    }
+    const borrarPedido = (eliminarPedido) => {
+      setArregloPedidos(arregloPedidos.filter(pedido => pedido.nombre !== eliminarPedido))
+    }
+    
     const OverlayCartel = () => (
       <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
-    );
+    )
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [overlay, setOverlay] = React.useState(<OverlayCartel />);
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [overlay, setOverlay] = React.useState(<OverlayCartel />)
 
+
+    const [arregloPedidos, setArregloPedidos] = useState([
+      {
+      nombre: 'Juan',
+      telefono: '2914142126',
+      fecha: fechaActual,
+      detalle: 'Un patito amarillo impreso en 3D para ponerce en la cabeza',
+      total: 3000,
+      seña: 1000,
+      factura: true,
+      estado: 'Sin iniciar'
+      },{
+      nombre: 'Santi',
+      telefono: '2915275376',
+      fecha: fechaActual,
+      detalle: 'Un cuervo negro impreso en 3D para ponerlo como espantapajaro en el local',
+      total: 10000,
+      seña: 8000,
+      factura: false,
+      estado: 'En proceso'
+      }
+    ]);
+  
     return(
         <VStack w={"100%"}>
           <Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -62,12 +74,13 @@ const Cuerpo = () => {
             </Flex>
           </IconContext.Provider>
 
-          {pedidos.map((pedido, index) => (
+
+          {arregloPedidos.map((pedido, index) => (
             <DiseñoEntradaPc key={index} pedido={pedido} borrarPedido={borrarPedido}/>
           ))}
           <Divider />
         </VStack>
-    );
+    )
 }
 
-export { Cuerpo };
+export { Cuerpo }
