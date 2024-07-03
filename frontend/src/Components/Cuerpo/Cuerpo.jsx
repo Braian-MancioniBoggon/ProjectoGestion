@@ -14,21 +14,23 @@ const Cuerpo = () => {
   
     const fetchPedidos = async () => {
       const response = await getPedidos();
-      setPedidos(response.data);
+      const sortedPedidos = response.data.sort((a, b) => new Date(b.fechaCompleta) - new Date(a.fechaCompleta));
+      setPedidos(sortedPedidos);
     };
 
     useEffect(() => {
-      //fetchPedidos();
-      getPedidos().then((response) => {
-        const sortedPedidos = response.data.sort((a, b) => new Date(b.fechaCompleta) - new Date(a.fechaCompleta));
-        setPedidos(sortedPedidos);
-      });
+      fetchPedidos();
+      //getPedidos().then((response) => {
+      //  const sortedPedidos = response.data.sort((a, b) => new Date(b.fechaCompleta) - new Date(a.fechaCompleta));
+      //  setPedidos(sortedPedidos);
+      //});
     }, []);
   
     const agregarPedido = async (nombre, telefono, detalle, total, seña, factura, estado) => {
       const pedidoNuevo = { nombre, telefono, fecha: fechaActual, fechaCompleta: new Date(), detalle, total, seña, factura, estado };
       const response = await createPedido(pedidoNuevo);
       setPedidos([...pedidos, response.data]);
+      fetchPedidos();
     };
 
     const actualizarPedido = (id, updatedPedido) => {
