@@ -24,4 +24,10 @@ router.delete('/:id', async (req, res) => {
   res.status(204).send();
 });
 
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const updatedPedido = await Pedido.findByIdAndUpdate(id, req.body, { new: true });
+  res.status(200).send(updatedPedido);
+});
+
 module.exports = router;

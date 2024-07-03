@@ -1,8 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Field, Form, Formik } from 'formik';
 import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage, Flex, Select, Checkbox, Textarea } from '@chakra-ui/react'
 
-const Formulario = ({cerrarModal, agregarPedido}) => {
+const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit, setPedidoToEdit, editando }) => {
+
+    const [initialValues, setInitialValues] = useState({
+      nombre: '',
+      telefono: '',
+      detalle: '',
+      total: '',
+      seña: '',
+      factura: false,
+      estado: 'Sin iniciar'
+    });
+
+    useEffect(() => {
+      if (pedidoToEdit) {
+        setInitialValues({
+          nombre: pedidoToEdit.nombre,
+          telefono: pedidoToEdit.telefono,
+          detalle: pedidoToEdit.detalle,
+          total: pedidoToEdit.total,
+          seña: pedidoToEdit.seña,
+          factura: pedidoToEdit.factura,
+          estado: pedidoToEdit.estado
+        });
+      } else {
+        setInitialValues({
+          nombre: '',
+          telefono: '',
+          detalle: '',
+          total: '',
+          seña: '',
+          factura: false,
+          estado: 'Sin iniciar'
+        });
+      }
+    }, [pedidoToEdit]);
 
     function campoObligatorio(value) {
       let error
@@ -24,19 +58,17 @@ const Formulario = ({cerrarModal, agregarPedido}) => {
 
     return(
         <Formik
-          initialValues={{ 
-                            nombre: '',
-                            telefono: '',
-                            detalle: '',
-                            total: '',
-                            seña: '',
-                            factura: false,
-                            estado: 'Sin iniciar'
-                        }}
+          enableReinitialize={true}
+          initialValues={initialValues}
           onSubmit={(values, actions) => {
             if (!values.seña) {values.seña = 0;}
-            agregarPedido( values.nombre, values.telefono, values.detalle, values.total, values.seña, values.factura, values.estado)
+            if (pedidoToEdit) {
+              actualizarPedido(pedidoToEdit._id, values);
+            } else {
+              agregarPedido(values.nombre, values.telefono, values.detalle, values.total, values.seña, values.factura, values.estado);
+            }
             cerrarModal()
+            setPedidoToEdit(undefined)
           }}
         >
           {(props) => (

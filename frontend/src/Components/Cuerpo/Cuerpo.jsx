@@ -4,10 +4,12 @@ import { DiseñoEntradaPc } from '../DiseñoEntradaPc/DiseñoEntradaPc';
 import { Formulario } from '../Formulario/Formulario';
 import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineFindInPage } from "react-icons/md";
-import { createPedido, getPedidos } from '../../api/api';
+import { createPedido, getPedidos, updatePedido, deletePedido as eliminarPedidoBackend } from '../../api/api';
 
 const Cuerpo = () => {
     const [pedidos, setPedidos] = useState([]);
+    const [editando, setEditando] = useState(false);
+    const [pedidoToEdit, setPedidoToEdit] = useState("");
     const [fechaActual, setFechaActual] = useState(new Date().toLocaleDateString());
   
     const fetchPedidos = async () => {
@@ -16,7 +18,10 @@ const Cuerpo = () => {
     };
 
     useEffect(() => {
-      fetchPedidos();
+      //fetchPedidos();
+      getPedidos().then((response) => {
+        setPedidos(response.data);
+      });
     }, []);
   
     const agregarPedido = async (nombre, telefono, detalle, total, seña, factura, estado) => {
@@ -25,9 +30,27 @@ const Cuerpo = () => {
       setPedidos([...pedidos, response.data]);
     };
 
-    const borrarPedido = async (nombre) => {
-      // Implementa la lógica para borrar un pedido en el backend y actualizar el estado
+    const actualizarPedido = (id, updatedPedido) => {
+      setEditando(true);
+      updatePedido(id, updatedPedido).then((response) => {
+        setPedidos(pedidos.map(p => (p._id === response.data._id ? response.data : p)));
+        setPedidoToEdit(""); // Clear the form after editing
+      });
     };
+  
+    const handleEditClick = (pedido) => {
+      setPedidoToEdit(pedido);
+      onOpen();
+    };
+
+    const borrarPedido = async (id) => {
+      try {
+        await eliminarPedidoBackend(id);
+        setPedidos(pedidos.filter(pedido => pedido._id !== id));
+      } catch (error) {
+        console.error('Error al eliminar pedido:', error);
+      }
+    }
 
     const OverlayCartel = () => (
       <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
@@ -42,9 +65,20 @@ const Cuerpo = () => {
           {overlay}
             <ModalContent>
               <ModalHeader>Cargar pedido</ModalHeader>
-              <ModalCloseButton />
+              <ModalCloseButton onClick={() => {
+                    onClose();
+                    setPedidoToEdit("");
+                  }} />
               <ModalBody>
-                <Formulario cerrarModal={onClose} agregarPedido={agregarPedido} />
+                <Formulario cerrarModal={() => {
+                    onClose();
+                    setPedidoToEdit("");
+                  }}
+                  agregarPedido={agregarPedido}
+                  actualizarPedido={actualizarPedido}
+                  pedidoToEdit={pedidoToEdit}
+                  setPedidoToEdit={setPedidoToEdit}
+                  editando={editando}/>
               </ModalBody>
             </ModalContent>
           </Modal>
@@ -62,8 +96,8 @@ const Cuerpo = () => {
             </Flex>
           </IconContext.Provider>
 
-          {pedidos.map((pedido, index) => (
-            <DiseñoEntradaPc key={index} pedido={pedido} borrarPedido={borrarPedido}/>
+          {pedidos.map((pedido) => (
+            <DiseñoEntradaPc key={pedido._id} pedido={pedido} borrarPedido={() => borrarPedido(pedido._id)} handleEditClick={handleEditClick} />
           ))}
           <Divider />
         </VStack>
