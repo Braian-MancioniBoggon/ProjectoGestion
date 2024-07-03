@@ -4,6 +4,7 @@ const PedidoSchema = new mongoose.Schema({
   nombre: String,
   telefono: String,
   fecha: String,
+  fechaCompleta: String,
   detalle: String,
   total: Number,
   seña: Number,
@@ -11,6 +12,6 @@ const PedidoSchema = new mongoose.Schema({
   estado: String
 });
 
-const Pedido = mongoose.model('Pedido', PedidoSchema);
+const Pedido = mongoose.model('Pedido', PedidoSchema, 'pedidosCerberus');
 
 module.exports = Pedido;
