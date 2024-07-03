@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { VStack, Flex, IconButton, Img, Box, Text, Heading, Input, Checkbox, Divider, Badge, Link } from '@chakra-ui/react';
 import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineDriveFileRenameOutline, MdOutlineRemoveRedEye, MdDeleteOutline, MdOutlineFindInPage, MdOutlineFileCopy, MdOutlineWhatsapp } from "react-icons/md";
+import { TbReceiptDollar } from "react-icons/tb";
 
-const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido}) => {
+const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido, verPedido}) => {
     const [whatsappLink, setWhatsappLink] = useState(`https://wa.me/+54${pedido.telefono}`);
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
@@ -35,8 +36,8 @@ const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido}) => {
                             </Link>
                         </Flex>
                         <Flex direction={'row'}>
-                            <IconButton isRound='true' icon={<MdOutlineFileCopy />}  color="" bg="" _hover={{ bg:"" }}></IconButton>
-                            <IconButton isRound='true' icon={<MdDeleteOutline />}  color="" bg="" _hover={{ bg:"" }} onClick={() => borrarPedido(pedido.nombre)}></IconButton>
+                            <IconButton isRound='true' icon={<TbReceiptDollar />} onClick={() => verPedido(pedido)} color="" bg="" _hover={{ bg:"" }}></IconButton>
+                            <IconButton isRound='true' icon={<MdDeleteOutline />} color="" bg="" _hover={{ bg:"" }} onClick={() => borrarPedido(pedido.nombre)}></IconButton>
                         </Flex>
                     </Flex>
                 </Flex>

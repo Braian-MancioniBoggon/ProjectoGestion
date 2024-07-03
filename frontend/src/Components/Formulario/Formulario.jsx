@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Field, Form, Formik } from 'formik';
 import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage, Flex, Select, Checkbox, Textarea } from '@chakra-ui/react'
 
-const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit, setPedidoToEdit, editando }) => {
+const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit, setPedidoToEdit }) => {
 
     const [initialValues, setInitialValues] = useState({
       nombre: '',

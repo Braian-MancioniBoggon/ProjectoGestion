@@ -5,12 +5,14 @@ import { Formulario } from '../Formulario/Formulario';
 import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineFindInPage } from "react-icons/md";
 import { createPedido, getPedidos, updatePedido, deletePedido as eliminarPedidoBackend } from '../../api/api';
+import { Presupuesto } from '../Presupuesto/Presupuesto';
 
-const Cuerpo = () => {
+const Cuerpo = ({esOscuro}) => {
     const [pedidos, setPedidos] = useState([]);
-    const [editando, setEditando] = useState(false);
+    const [tituloModal, setTituloModal] = useState("Cargar pedido");
     const [pedidoToEdit, setPedidoToEdit] = useState("");
     const [fechaActual, setFechaActual] = useState(new Date().toLocaleDateString());
+    const [mostrarPedido, setMostrarPedido] = useState(false);
   
     const fetchPedidos = async () => {
       const response = await getPedidos();
@@ -20,10 +22,6 @@ const Cuerpo = () => {
 
     useEffect(() => {
       fetchPedidos();
-      //getPedidos().then((response) => {
-      //  const sortedPedidos = response.data.sort((a, b) => new Date(b.fechaCompleta) - new Date(a.fechaCompleta));
-      //  setPedidos(sortedPedidos);
-      //});
     }, []);
   
     const agregarPedido = async (nombre, telefono, detalle, total, seña, factura, estado) => {
@@ -34,15 +32,29 @@ const Cuerpo = () => {
     };
 
     const actualizarPedido = (id, updatedPedido) => {
-      setEditando(true);
       updatePedido(id, updatedPedido).then((response) => {
         setPedidos(pedidos.map(p => (p._id === response.data._id ? response.data : p)));
-        setPedidoToEdit(""); // Clear the form after editing
+        setPedidoToEdit("");
       });
+    };
+/*
+    const verPedido = (id, mostrarPedido) => {
+      updatePedido(id, mostrarPedido).then((response) => {
+        setPedidos(pedidos.map(p => (p._id === response.data._id ? response.data : p)));
+      });
+    };
+  */
+    const verPedido = (pedido) => {
+      setMostrarPedido(true);
+      setPedidoToEdit(pedido);
+      setTituloModal("");
+      onOpen();
     };
   
     const handleEditClick = (pedido) => {
       setPedidoToEdit(pedido);
+      setMostrarPedido(false);
+      setTituloModal("Modificar pedido");
       onOpen();
     };
 
@@ -67,29 +79,36 @@ const Cuerpo = () => {
           <Modal isCentered isOpen={isOpen} onClose={onClose}>
           {overlay}
             <ModalContent>
-              <ModalHeader>Cargar pedido</ModalHeader>
+              <ModalHeader>{tituloModal}</ModalHeader>
               <ModalCloseButton onClick={() => {
                     onClose();
                     setPedidoToEdit("");
+                    setMostrarPedido(false);
                   }} />
               <ModalBody>
-                <Formulario cerrarModal={() => {
-                    onClose();
-                    setPedidoToEdit("");
-                  }}
-                  agregarPedido={agregarPedido}
-                  actualizarPedido={actualizarPedido}
-                  pedidoToEdit={pedidoToEdit}
-                  setPedidoToEdit={setPedidoToEdit}
-                  editando={editando}/>
+                {mostrarPedido ? 
+                  <Presupuesto esOscuro={esOscuro}
+                    pedidoToEdit={pedidoToEdit}
+                    setPedidoToEdit={setPedidoToEdit}/> :
+                  <Formulario cerrarModal={() => {
+                      onClose();
+                      setPedidoToEdit("");
+                    }}
+                    agregarPedido={agregarPedido}
+                    actualizarPedido={actualizarPedido}
+                    pedidoToEdit={pedidoToEdit}
+                    setPedidoToEdit={setPedidoToEdit}/>
+                }
               </ModalBody>
             </ModalContent>
           </Modal>
-
           <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
             <Flex w={"100%"} direction={'column'}>
               <Flex direction={'row'} maxW={"300px"} justifyContent='flex-start' pl={{base:"0px", sm:"0px", md:"30px"}}  pr={{base:"0px", sm:"0px", md:"30px"}} >
                   <IconButton isRound='true' icon={<MdOutlineAddBox />} color="" bg="" _hover={{ bg:"" }} onClick={() => {
+                                                      setTituloModal("Cargar pedido");
+                                                      setMostrarPedido(false);
+                                                      setPedidoToEdit("");
                                                       setOverlay(<OverlayCartel />)
                                                       onOpen()
                                                     }}>
@@ -100,7 +119,7 @@ const Cuerpo = () => {
           </IconContext.Provider>
 
           {pedidos.map((pedido) => (
-            <DiseñoEntradaPc key={pedido._id} pedido={pedido} borrarPedido={() => borrarPedido(pedido._id)} handleEditClick={handleEditClick} />
+            <DiseñoEntradaPc key={pedido._id} pedido={pedido} borrarPedido={() => borrarPedido(pedido._id)} handleEditClick={handleEditClick} verPedido={verPedido} />
           ))}
           <Divider />
         </VStack>

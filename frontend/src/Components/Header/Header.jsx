@@ -4,9 +4,8 @@ import { RiInstagramLine } from "react-icons/ri";
 import { VStack, Flex, Img, Box, IconButton, useColorMode, Text, Heading } from '@chakra-ui/react'
 import { IconContext } from 'react-icons';
 
-const Header = () => {
-    const { colorMode, toggleColorMode } = useColorMode();
-    const esOscuro = colorMode === "dark";
+const Header = ({esOscuro, toggleColorMode}) => {
+    
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"30px" } }}>
         <VStack>
