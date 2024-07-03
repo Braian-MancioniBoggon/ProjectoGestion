@@ -16,7 +16,7 @@ const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido}) => {
                         <Flex w={"max-content"} maxW={"110px"}>{pedido.telefono}</Flex>
                     </Flex>
                     <Flex direction={"column"} alignItems={"start"} flexGrow={50} p={5}>
-                        <Flex w={"100%"}>{pedido.detalle}</Flex>
+                        <Flex w={"100%"} whiteSpace="pre-wrap">{pedido.detalle}</Flex>
                     </Flex>
                     <Flex direction={"column"} alignItems={"center"} flexGrow={1} p={5}>
                         <Flex w={"max-content"} justifyContent={"flex-end"}>Total: ${pedido.total}</Flex>
