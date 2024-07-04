@@ -30,4 +30,14 @@ router.put('/:id', async (req, res) => {
   res.status(200).send(updatedPedido);
 });
 
+router.get('/buscar/:telefono', async (req, res) => {
+  try {
+    const telefono = req.params.telefono;
+    const pedidos = await Pedido.find({ telefono: new RegExp(telefono, 'i') });
+    res.status(200).send(pedidos);
+  } catch (error) {
+    res.status(500).send('Error al buscar pedidos');
+  }
+});
+
 module.exports = router;

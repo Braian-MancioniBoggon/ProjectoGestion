@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Field, Form, Formik } from 'formik';
 import { VStack, Modal, ModalOverlay, Button, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Text, ModalFooter, FormControl, FormLabel, Input, FormErrorMessage, Flex, Select, Checkbox, Textarea } from '@chakra-ui/react'
+import { buscarPedidosPorTelefono } from '../../api/api';
 
 const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit, setPedidoToEdit }) => {
 
@@ -14,6 +15,9 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
       estado: 'Sin iniciar'
     });
 
+    const [sugerencias, setSugerencias] = useState([]);
+    const [telefonoSeleccionado, setTelefonoSeleccionado] = useState('');
+
     useEffect(() => {
       if (pedidoToEdit) {
         setInitialValues({
@@ -25,6 +29,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
           factura: pedidoToEdit.factura,
           estado: pedidoToEdit.estado
         });
+        setTelefonoSeleccionado(pedidoToEdit.telefono);
       } else {
         setInitialValues({
           nombre: '',
@@ -35,8 +40,26 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
           factura: false,
           estado: 'Sin iniciar'
         });
+        setTelefonoSeleccionado("");
       }
     }, [pedidoToEdit]);
+
+    const handleTelefonoChange = async (e) => {
+      const telefono = e.target.value;
+      setTelefonoSeleccionado(telefono);
+  
+      if (telefono.length >= 3) {  // Opcional: solo buscar si hay al menos 3 caracteres
+        const response = await buscarPedidosPorTelefono(telefono);
+        const coincidencia = response.data.find(p => p.telefono === telefono);
+        if (coincidencia) {
+          setInitialValues((prevValues) => ({
+            ...prevValues,
+            nombre: coincidencia.nombre,
+            telefono: coincidencia.telefono
+          }));
+        } 
+      }
+    };
 
     function campoObligatorio(value) {
       let error
@@ -70,25 +93,26 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
             }
             cerrarModal()
             setPedidoToEdit(undefined)
+            setTelefonoSeleccionado('');
           }}
         >
           {(props) => (
             <Form>
-              <Field name='nombre' validate={campoObligatorio}>
-                {({ field, form }) => (
-                  <FormControl isInvalid={form.errors.nombre && form.touched.nombre}>
-                    <FormLabel>Nombre</FormLabel>
-                    <Input {...field} placeholder='' />
-                    <FormErrorMessage>{form.errors.nombre}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
               <Field name='telefono' validate={validarTelefono}>
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.telefono && form.touched.telefono}>
                     <FormLabel>Telefono</FormLabel>
-                    <Input {...field} placeholder='' />
+                    <Input {...field} placeholder='' autoComplete='off' onChange={(e) => { field.onChange(e); handleTelefonoChange(e); }} value={telefonoSeleccionado} />
                     <FormErrorMessage>{form.errors.telefono}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name='nombre' validate={campoObligatorio}>
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.nombre && form.touched.nombre}>
+                    <FormLabel>Nombre</FormLabel>
+                    <Input {...field} placeholder='' autoComplete='off'  />
+                    <FormErrorMessage>{form.errors.nombre}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
@@ -96,7 +120,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.detalle && form.touched.detalle}>
                     <FormLabel>Detalle</FormLabel>
-                    <Textarea {...field} placeholder='' />
+                    <Textarea {...field} placeholder='' autoComplete='off'  />
                     <FormErrorMessage>{form.errors.detalle}</FormErrorMessage>
                   </FormControl>
                 )}
@@ -107,7 +131,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
                     {({ field, form }) => (
                       <FormControl isInvalid={form.errors.total && form.touched.total}>
                         <FormLabel>Total</FormLabel>
-                        <Input {...field} placeholder='' />
+                        <Input {...field} placeholder='' autoComplete='off'  />
                         <FormErrorMessage>{form.errors.total}</FormErrorMessage>
                       </FormControl>
                     )}
@@ -118,7 +142,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
                     {({ field, form }) => (
                       <FormControl isInvalid={form.errors.seña && form.touched.seña}>
                         <FormLabel>Seña</FormLabel>
-                        <Input {...field} placeholder='' />
+                        <Input {...field} placeholder='' autoComplete='off'  />
                         <FormErrorMessage>{form.errors.seña}</FormErrorMessage>
                       </FormControl>
                     )}
