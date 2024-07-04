@@ -61,6 +61,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
           enableReinitialize={true}
           initialValues={initialValues}
           onSubmit={(values, actions) => {
+            if (!values.total) {values.total = 0;}
             if (!values.seña) {values.seña = 0;}
             if (pedidoToEdit) {
               actualizarPedido(pedidoToEdit._id, values);
