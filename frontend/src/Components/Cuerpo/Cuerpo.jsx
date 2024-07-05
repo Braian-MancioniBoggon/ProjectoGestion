@@ -6,6 +6,7 @@ import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineFindInPage } from "react-icons/md";
 import { createPedido, getPedidos, updatePedido, deletePedido as eliminarPedidoBackend } from '../../api/api';
 import { Presupuesto } from '../Presupuesto/Presupuesto';
+import { motion } from "framer-motion"
 
 const Cuerpo = ({esOscuro}) => {
     const [pedidos, setPedidos] = useState([]);
@@ -75,7 +76,7 @@ const Cuerpo = ({esOscuro}) => {
     const [overlay, setOverlay] = React.useState(<OverlayCartel />);
 
     return(
-        <VStack w={"100%"}>
+        <VStack w={"100%"} pl={"5px"}>
           <Modal isCentered isOpen={isOpen} onClose={onClose}>
           {overlay}
             <ModalContent>

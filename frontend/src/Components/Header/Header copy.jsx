@@ -8,13 +8,10 @@ const Header = ({esOscuro, toggleColorMode}) => {
     
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"30px" } }}>
-        <VStack h="100vh" w="40px" justifyContent={"center"} pl={{base:"0px", sm:"0px",  md:"30px"}}  pr={{base:"0px", sm:"0px",  md:"30px"}} >
-                <Flex pos={"fixed"} direction={"column"} bgColor="" h="100vh" w="30px" borderRightRadius={"15px"} alignItems="center" justifyContent='space-between' pt="25px" pb="25px" pl={{base:"0px", sm:"0px",  md:"30px"}}  pr={{base:"0px", sm:"0px",  md:"30px"}} boxShadow={"-10px 0px 25px 5px rgba(0,0,0,0.75)"}>
-                    
-                    <Flex direction={'column'} grow={1} W={"40px"} justifyContent='space-between'> 
-                        <IconButton isRound='true' color="" bg="" _hover={{ bg:"" }}>
-                            <Img h="50px" w="auto" src={esOscuro ? "img/monogramaBlanco.png" : "img/monogramaRojo.png"} />
-                        </IconButton> 
+        <VStack>
+                <Flex bgColor="" h="130px" w="100%" alignItems="center" justifyContent='space-between'  pl={{base:"0px", sm:"0px",  md:"30px"}}  pr={{base:"0px", sm:"0px",  md:"30px"}} >
+                    <Img h="40px" src={esOscuro ? "img/logoCerberus.png" : "img/logoCerberusAlt.png"} />
+                    <Flex direction={'row'} grow={1} maxW={"700px"} justifyContent='space-between'> 
                         <IconButton isRound='true' color="" bg="" _hover={{ bg:"" }}>
                             <Img h="30px" src={esOscuro ? "img/logoVari.png" : "img/logoVariAlt.png"} />
                         </IconButton>
