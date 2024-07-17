@@ -8,8 +8,8 @@ const Header = ({esOscuro, toggleColorMode}) => {
     
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"24px" } }}>
-        <VStack h="100vh" w="60px" justifyContent={"center"} alignItems="flex-start" >
-                <Flex pos={"fixed"} direction={"column"} bgColor="" h="100vh" w="30px" borderRightRadius={"15px"} alignItems="center" justifyContent='space-between' pt="25px" pb="25px" pl={"30px"}  pr={"30px"} boxShadow={"-10px 0px 25px 5px rgba(0,0,0,0.75)"}>
+        <VStack h="100vh" w="60px" justifyContent={"center"} alignItems="flex-start">
+                <Flex pos={"fixed"} direction={"column"} bgColor="" h="100vh" w="30px" borderRightRadius={"15px"} alignItems="center" justifyContent='space-between' pt="25px" pb="25px" pl={"30px"}  pr={"30px"} zIndex={"99"} bg={esOscuro ? "#1a202c" : "#ffffff"} boxShadow={"-10px 0px 25px 5px rgba(0,0,0,0.75)"}>
                     <Flex direction={'column'} grow={1} W={"40px"} justifyContent='space-between'> 
                         <Flex direction={"column"} >
                             <IconButton isRound='true' color="" bg="" _hover={{ bg:"" }}>

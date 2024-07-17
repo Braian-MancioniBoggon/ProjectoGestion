@@ -17,6 +17,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
 
     const [sugerencias, setSugerencias] = useState([]);
     const [telefonoSeleccionado, setTelefonoSeleccionado] = useState('');
+    const [checked, setChecked] = useState(false);
 
     useEffect(() => {
       if (pedidoToEdit) {
@@ -30,6 +31,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
           estado: pedidoToEdit.estado
         });
         setTelefonoSeleccionado(pedidoToEdit.telefono);
+        setChecked(pedidoToEdit.factura);
       } else {
         setInitialValues({
           nombre: '',
@@ -41,8 +43,17 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
           estado: 'Sin iniciar'
         });
         setTelefonoSeleccionado("");
+        setChecked(false);
       }
     }, [pedidoToEdit]);
+
+    const handleCheckboxChange = (e) => {
+      setChecked(e.target.checked);
+      setInitialValues(prevValues => ({
+        ...prevValues,
+        factura: e.target.checked
+      }));
+    };
 
     const handleTelefonoChange = async (e) => {
       const telefono = e.target.value;
@@ -167,7 +178,7 @@ const Formulario = ({cerrarModal, agregarPedido, actualizarPedido, pedidoToEdit,
                 <Flex w={"150px"}>
                   <Field name='factura' w={"150px"}>
                     {({ field, form }) => (
-                      <FormControl isInvalid={form.errors.factura && form.touched.factura}><Checkbox {...field} ml={"5px"}>Factura</Checkbox>
+                      <FormControl isInvalid={form.errors.factura && form.touched.factura}><Checkbox {...field} ml={"5px"} isChecked={checked} onChange={handleCheckboxChange}>Factura</Checkbox>
                       <FormErrorMessage>{form.errors.factura}</FormErrorMessage>
                       </FormControl>
                     )}

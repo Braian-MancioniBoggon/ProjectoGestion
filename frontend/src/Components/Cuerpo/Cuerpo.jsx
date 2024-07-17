@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { VStack, Divider, Modal, ModalOverlay, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Flex, IconButton } from '@chakra-ui/react';
+import { VStack, Divider, Modal, ModalOverlay, useDisclosure, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Flex, IconButton, InputGroup, Input, InputRightElement, Select } from '@chakra-ui/react';
 import { DiseñoEntradaPc } from '../DiseñoEntradaPc/DiseñoEntradaPc';
 import { Formulario } from '../Formulario/Formulario';
 import { IconContext } from 'react-icons';
-import { MdOutlineAddBox, MdOutlineFindInPage } from "react-icons/md";
+import { MdOutlineAddBox } from "react-icons/md";
+import { IoSearchOutline } from "react-icons/io5";
 import { createPedido, getPedidos, updatePedido, deletePedido as eliminarPedidoBackend } from '../../api/api';
 import { Presupuesto } from '../Presupuesto/Presupuesto';
 import { motion } from "framer-motion"
@@ -104,9 +105,9 @@ const Cuerpo = ({esOscuro}) => {
             </ModalContent>
           </Modal>
           <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
-            <Flex w={"100%"} direction={'column'}>
-              <Flex direction={'row'} maxW={"300px"} justifyContent='flex-start' pl={{base:"0px", sm:"0px", md:"30px"}}  pr={{base:"0px", sm:"0px", md:"30px"}} >
-                  <IconButton isRound='true' icon={<MdOutlineAddBox />} color="" bg="" _hover={{ bg:"" }} onClick={() => {
+            <Flex w={"100%"} mb={"40px"} direction={'column'}>
+              <Flex w={"100%"} h={"50px"} left={"0px"} zIndex={"90"} direction={'row'} justifyContent='flex-start' pl={{base:"0px", sm:"0px", md:"70px"}}  pr={{base:"0px", sm:"0px", md:"30px"}}  alignItems={"center"} position={"fixed"} bg={esOscuro ? "#1a202c" : "#ffffff"} boxShadow={"0px 0px 25px -10px rgba(0,0,0,0.75)"}>
+                  <IconButton isRound='true' ml={"10px"} mr={"10px"} icon={<MdOutlineAddBox />} color="" bg="" _hover={{ bg:"" }} onClick={() => {
                                                       setTituloModal("Cargar pedido");
                                                       setMostrarPedido(false);
                                                       setPedidoToEdit("");
@@ -114,7 +115,21 @@ const Cuerpo = ({esOscuro}) => {
                                                       onOpen()
                                                     }}>
                   </IconButton>
-                  <IconButton isRound='true' icon={<MdOutlineFindInPage />} color="" bg="" _hover={{ bg:"" }}></IconButton>
+                  <InputGroup>
+                    <Input placeholder='Buscar' />
+                    <InputRightElement pointerEvents='none'>
+                    <IoSearchOutline />
+                    </InputRightElement>
+                  </InputGroup>
+                  <Flex alignItems={"center"} ml={"20px"}>
+                    Mostrar: 
+                    <Select ml={"10px"} width={"130px"}>
+                      <option value='Todos'>Todos</option>
+                      <option value='Sin iniciar'>Sin iniciar</option>
+                      <option value='En proceso'>En proceso</option>
+                      <option value='Finalizado'>Finalizado</option>
+                    </Select>
+                  </Flex>
               </Flex>
             </Flex>
           </IconContext.Provider>
