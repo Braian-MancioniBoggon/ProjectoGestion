@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const pedidosRouter = require('./routes/pedidos');
+const productosRouter = require('./routes/productos');
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 app.use('/api/pedidos', pedidosRouter);
+app.use('/api/productos', productosRouter);
+app.use('/api/modificadores', modificadoresRouter);
 
 app.listen(3001, () => {
   console.log('Servidor corriendo en puerto 3001');
@@ -30,5 +33,25 @@ app.delete('/api/pedidos/:id', async (req, res) => {
     res.status(200).send('Pedido eliminado');
   } catch (error) {
     res.status(500).send('Error al eliminar pedido');
+  }
+});
+
+app.delete('/api/productos/:id', async (req, res) => {
+  try {
+    const productoId = req.params.id;
+    await Producto.findByIdAndDelete(productoId);
+    res.status(200).send('Producto eliminado');
+  } catch (error) {
+    res.status(500).send('Error al eliminar producto');
+  }
+});
+
+app.delete('/api/modificadores/:id', async (req, res) => {
+  try {
+    const productoId = req.params.id;
+    await Producto.findByIdAndDelete(productoId);
+    res.status(200).send('Modificador eliminado');
+  } catch (error) {
+    res.status(500).send('Error al eliminar modificador');
   }
 });

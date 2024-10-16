@@ -11,7 +11,7 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Router basename="/ProyectoGestion">
+      <Router basename="/ProyectoGestion/">
         <Flex>
           <Flex>
             <Header esOscuro={esOscuro} toggleColorMode={toggleColorMode}/>
