@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ChakraProvider, Flex, useColorMode } from '@chakra-ui/react'
 import { Header } from './Components/Header/Header'
 import { Cuerpo } from './Components/Cuerpo/Cuerpo'
-import { MenuGrilla } from './Components/MenuGrilla/MenuGrilla'
+import { ListaDePrecios } from './Components/ListaDePrecios/ListaDePrecios'
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -10,10 +11,19 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Flex w={"100%"}>
-        <Header esOscuro={esOscuro} toggleColorMode={toggleColorMode}/>
-        <Cuerpo esOscuro={esOscuro}/>
-      </Flex>
+      <Router basename="/ProyectoGestion">
+        <Flex>
+          <Flex>
+            <Header esOscuro={esOscuro} toggleColorMode={toggleColorMode}/>
+          </Flex>
+          <Flex direction="column" width="100%">
+            <Routes>
+              <Route path="/" element={<Cuerpo esOscuro={esOscuro}/>} />
+              <Route path="/lista-de-precios" element={<ListaDePrecios esOscuro={esOscuro}/>} />
+            </Routes>
+          </Flex>
+        </Flex>
+      </Router>
     </ChakraProvider>
   )
 }
