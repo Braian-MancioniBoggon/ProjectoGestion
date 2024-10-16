@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const pedidosRouter = require('./routes/pedidos');
 const productosRouter = require('./routes/productos');
+const modificadoresRouter = require('./routes/modificadores');
 
 const app = express();
 app.use(cors());
