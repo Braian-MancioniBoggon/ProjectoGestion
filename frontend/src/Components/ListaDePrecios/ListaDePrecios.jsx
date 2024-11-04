@@ -79,8 +79,8 @@ const ListaDePrecios = ({esOscuro}) => {
             </Modal>
 
 
-            <Flex flexDirection="row-reverse" alignItems="flex-start" justifyContent="space-evenly" w="100%" padding="20px">
-              <TableContainer w="400px" borderColor="#e2e8f0" borderWidth="1px" borderRadius="12px">
+            <Flex flexDirection="row-reverse" alignItems="flex-start" justifyContent="space-evenly" w="100%" padding="20px" >
+              <TableContainer w="400px" borderRadius="12px" boxShadow={"3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 255, 255, 0.5)"} >
                 <Table layout="fixed">
                   <Thead>
                     <Tr>
@@ -156,7 +156,7 @@ const ListaDePrecios = ({esOscuro}) => {
                 </Table>
               </TableContainer>
 
-              <TableContainer borderColor="#e2e8f0" borderWidth="1px" borderRadius="12px">
+              <TableContainer boxShadow={"3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 255, 255, 0.5)"} borderRadius="12px">
                 <Table>
                   <Thead>
                     <Tr>

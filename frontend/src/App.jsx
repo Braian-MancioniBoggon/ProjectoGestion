@@ -10,7 +10,6 @@ function App() {
   const esOscuro = colorMode === "dark";
 
   return (
-    <ChakraProvider>
       <Router basename="/ProyectoGestion/">
         <Flex>
           <Flex>
@@ -24,7 +23,6 @@ function App() {
           </Flex>
         </Flex>
       </Router>
-    </ChakraProvider>
   )
 }
 
