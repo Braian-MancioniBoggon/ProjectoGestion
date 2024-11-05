@@ -81,7 +81,7 @@ const ListaDePrecios = ({esOscuro}) => {
 
             <Flex flexDirection="row-reverse" alignItems="flex-start" justifyContent="space-evenly" w="100%" padding="20px" >
               <TableContainer w="400px" borderRadius="12px" boxShadow={"3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 255, 255, 0.5)"} >
-                <Table layout="fixed">
+                <Table layout="fixed" variant={"striped"} sx={{"tbody tr:nth-of-type(odd)": {backgroundColor: esOscuro ? "#303030" : "#e8e8e8",},}}>
                   <Thead>
                     <Tr>
                       <Td textAlign="left" fontWeight="bolder" fontSize="20px">Modificadores</Td>
@@ -157,7 +157,7 @@ const ListaDePrecios = ({esOscuro}) => {
               </TableContainer>
 
               <TableContainer boxShadow={"3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 255, 255, 0.5)"} borderRadius="12px">
-                <Table>
+                <Table variant={"striped"}>
                   <Thead>
                     <Tr>
                       <Td fontWeight="bolder" fontSize="20px">Lista de precios</Td>

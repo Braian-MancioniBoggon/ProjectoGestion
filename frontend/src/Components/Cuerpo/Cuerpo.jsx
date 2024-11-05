@@ -77,7 +77,7 @@ const Cuerpo = ({esOscuro}) => {
     const [overlay, setOverlay] = React.useState(<OverlayCartel />);
 
     return(
-        <VStack w={"100%"} pl={"5px"}>
+        <VStack w={"100%"} pl={"5px"} mb={"10px"}>
           <Modal isCentered isOpen={isOpen} onClose={onClose}>
           {overlay}
             <ModalContent>
@@ -106,7 +106,7 @@ const Cuerpo = ({esOscuro}) => {
           </Modal>
           <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
             <Flex w={"100%"} mb={"40px"} direction={'column'}>
-              <Flex w={"100%"} h={"50px"} left={"0px"} zIndex={"90"} direction={'row'} justifyContent='flex-start' pl={{base:"0px", sm:"0px", md:"70px"}}  pr={{base:"0px", sm:"0px", md:"30px"}}  alignItems={"center"} position={"fixed"} bg={esOscuro ? "#1a202c" : "#ffffff"} boxShadow={"0px 0px 25px -10px rgba(0,0,0,0.75)"}>
+              <Flex w={"100%"} h={"60px"} left={"0px"} zIndex={"90"} direction={'row'} justifyContent='flex-start' pl={{base:"0px", sm:"0px", md:"70px"}}  pr={{base:"0px", sm:"0px", md:"30px"}}  alignItems={"center"} position={"fixed"} bg={esOscuro ? "#212121" : "#ffffff"} boxShadow={"3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 255, 255, 0.5)"}>
                 <Tooltip label='Agregar pedido' placement='bottom' openDelay={250} hasArrow>
                   <IconButton isRound='true' ml={"10px"} mr={"10px"} icon={<MdOutlineAddBox />} color="" bg="" _hover={{ bg:"" }} onClick={() => {
                                                       setTituloModal("Cargar pedido");
@@ -135,9 +135,9 @@ const Cuerpo = ({esOscuro}) => {
               </Flex>
             </Flex>
           </IconContext.Provider>
-          <Flex direction="column" width="100%" p="0px 20px">
+          <Flex direction="column" width="100%" p="0px 20px" mt={"15px"}>
             {pedidos.map((pedido) => (
-              <DiseñoEntradaPc key={pedido._id} pedido={pedido} borrarPedido={() => borrarPedido(pedido._id)} handleEditClick={handleEditClick} verPedido={verPedido} />
+              <DiseñoEntradaPc key={pedido._id} pedido={pedido} esOscuro={esOscuro} borrarPedido={() => borrarPedido(pedido._id)} handleEditClick={handleEditClick} verPedido={verPedido} />
             ))}
             <Divider />
           </Flex>

@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import { MdOutlineAddBox, MdOutlineDriveFileRenameOutline, MdOutlineRemoveRedEye, MdDeleteOutline, MdOutlineFindInPage, MdOutlineFileCopy, MdOutlineWhatsapp } from "react-icons/md";
 import { TbReceiptDollar } from "react-icons/tb";
 
-const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido, verPedido}) => {
+const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido, verPedido, esOscuro}) => {
     const [whatsappLink, setWhatsappLink] = useState(`https://wa.me/+54${pedido.telefono}`);
 
     const colorEstadoPedido = (estadoPedido) => {
@@ -20,8 +20,7 @@ const DiseñoEntradaPc = ({pedido, handleEditClick, borrarPedido, verPedido}) =>
 
     return(
         <IconContext.Provider value={{ style: { verticalAlign: 'middle', fill:"", fontSize:"22px" } }}>
-            <VStack w={"100%"}>
-                <Divider />
+            <VStack w={"100%"} mb={"5px"} mt={"15px"}  _hover={{ bg:esOscuro ? "#303030" : "#e8e8e8" }} borderRadius={"8px"} boxShadow={"3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 255, 255, 0.5)"}>
                 <Flex w={"100%"} direction={'row'}>
                     <Flex direction={'column'} alignItems={"start"} flexGrow={1} p={5}>
                         <Flex w={"max-content"} fontSize={"14px"}>{pedido.fecha}</Flex>
